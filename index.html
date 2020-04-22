@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Birdkeeper</title>
     <style>
+    
     * {
         box-sizing: border-box;
       }
@@ -12,17 +13,92 @@
       .column {
         float: left;
         padding: 10px;
-        height: 300px; /* Should be removed. Only for demonstration */
       }
-      
-      .left {
+
+      .topleft {
+        position: absolute;
+        top: 0%;
         width: 35%;
+        height: 60%;
+        overflow: scroll;
+      }
+
+      .middleleft {
+          position: absolute;
+          top: 60%;
+          width: 35%;
+          height: 40%;
+          overflow: scroll;
+      }
+
+      .bottomleft {
+          position: absolute;
+          top: 100%;
+          width: 35%;
+          height: 40%;
+          overflow: scroll
+      }
+
+      .verybottomleft {
+        position: absolute;
+        top: 140%;
+        width: 35%;
+        height: 35%;
+        overflow: scroll
+      }
+
+      .leftoverright {
+          position: absolute;
+          top: 0%;
+          left: 35.5%;
+          width: 32.5%;
+          height: 25%;
+          overflow: scroll;
+      }
+
+      .rightoverright {
+        position: absolute;
+        top: 0%;
+        left: 68%;
+        width: 32%;
+        height: 25%;
+        overflow: scroll;
       }
       
       .right {
-        width: 65%;
+        position: absolute;
+        top: 25%;
+        left: 35.5%;
+        width: 64.5%;
         height: 100%;
         overflow: scroll;
+      }
+
+      .underright {
+          position: absolute;
+          top: 125%;
+          left: 35.5%;
+          width: 64.5%;
+          height: 50%;
+          overflow: scroll;
+      }
+
+      .dungeonplayer {
+          position: absolute;
+          top: 25%;
+          left: 10%;
+          width: 50%;
+          height: 75%;
+          overflow: scroll;
+      }
+
+      .dungeonenemy {
+          position: absolute;
+          top: 10%;
+          left: 65%;
+          width: 30%;
+          height: 90%;
+          overflow: scroll;
       }
       
       /* Clear floats after the columns */
@@ -36,9 +112,9 @@
 <script src="main.js" charset="UTF-8" type="text/javascript"></script>
 <body>
     <div class="row">
-        <div class="column left">
-            <p style="font-size:250%; color:darkkhaki; background:saddlebrown" id="eggsCollected">0 Eggs</p>
-            <p style="font-size:250%; color:snow; background:slateblue" id="milkCollected">0 Milk</p>
+        <div class="column topleft">
+            <div style="font-size:300%;">Foraging</div>
+            <br>
             <br>
             <button style="font-size:175%; color:yellowgreen; background:sienna" onclick="collectResources()">Forage</button>
             <div>Go and forage for resources with any forage-assisting birds you may have.</div>
@@ -51,7 +127,48 @@
             <button style="color:yellowgreen; background:sienna" onclick="newNestpecker()" id="addNestpecker">Hatch a new Nestpecker (Current Count: 0) Cost: 4119 Eggs</button>
             <div>Nestpeckers are excitable cousins of the woodpecker family, adept at using tools to carry things they find. Their excellent communication skills means they can initiate foraging operations indepedently.</div>
         </div>
+        <div class="column middleleft">
+            <div style="font-size:300%;">Resource Storage</div>
+            <br>
+            <br>
+            <div style="font-size:250%; color:darkkhaki; background:saddlebrown" id="eggsCollected">0 Eggs</div>
+            <div style="font-size:250%; color:snow; background:slateblue" id="milkCollected">0 Milk</div>
+            <div style="font-size:250%; color:mediumorchid; background:rgb(55, 40, 66)" id="feathersCollected">0 Feathers</div>
+            <br>
+            <button onclick="hatchCommandture()" id="addCommandture">Hatch a Commandture to lead warrior birds into battle. (Cost: 1000000 Milk)</button>
+        </div>
+        <div class="column bottomleft">
+            <div style="font-size:300%;">Prestige</div>
+            <br>
+            <br>
+            <button style="background:red; color:yellow; size:120%" onclick="newGaiix()" id="addGaiix">Hatch a new Gaiix (Current Count: 0) Cost: 1000000000 Eggs</button>
+            <div>Gaiices are rare birds of immortality and eternal health. Hatching one will bless your entire farm with new energy and life, boosting resource production by 100% and resetting unit costs back to their initial values.</div>
+        </div>
+        <div class="column verybottomleft">
+            <div style="font-size:300%;">Treasure Horde</div>
+            <div id="eggIdolsRetrieved">Egg Idols Retrieved: 0</div>
+            <div id="milkIdolsRetrieved">Milk Idols Retrieved: 0</div>
+            <div id="featherIdolsRetrieved">Feather Idols Retrieved: 0</div>
+            <br>
+            <div id="bronzeBustardsRetrieved">Bronze Bustards Retrieved: 0</div>
+            <div id="silverLamiaviansRetrieved">Silver Lamiavians Retrieved: 0</div>
+            <div id="goldSmewsRetrieved">Gold Smews Retrieved: 0</div>
+            <div id="platinumnGeeseRetrieved">Platinum Geese Retrieved: 0</div>
+        </div>
+        <div class="column leftoverright">
+            <div style="font-size:300%;">Unit Stats</div>
+        </div>
+        <div class="column rightoverright">
+            <div style="font-size:300%;">Special Stats</div>
+            <br>
+            <br>
+            <div id="prokareagleTimer">Not unlocked yet.</div>
+            <div id="prokareagleLimit">Not unlocked yet.</div>
+        </div>
         <div class="column right">
+            <div style="font-size:300%;">Shop</div>
+            <br>
+            <br>
             <div style="font-size:160%;">Basic Egg Producers</div>
             <button style="background:rgb(199, 199, 0)" onclick="newSulphurHen()" id="addSulphurHen">Hatch a new Sulphur Hen (Current Count: 0) Cost: 18 Eggs</button>
             <div>Sulphur Hens are common and docile, as well as easily noticed thanks to their bright yellow coats. Their feather and egg colour comes from a coat of sulphurous compounds that repulses most predators.</div>
@@ -65,7 +182,7 @@
             <div>Moth-winged, hummingbird-like avians that average 2 feet long with 3 foot wingspans. Albamoths have mutualistic relationship with Buttewrens; Albamoths watch over Buttewren nests and protect them from predators, in exchange for excess food gathered by the nesting Buttewrens.</div>
             <br>
             <br>
-            <button style="background:green;" onclick="newBruthrush()" id="addBruthrush">Hatch a new Bruthrush (Current Count: 0) Cost: 719</button>
+            <button style="background:green; color:white" onclick="newBruthrush()" id="addBruthrush">Hatch a new Bruthrush (Current Count: 0) Cost: 719</button>
             <div>Bruthrushes are common verdant birds found in temperate regions. Their large, leafy wings allow them to blend into foliage-rich environments, making them tricky to spot at first glance.</div>
             <br>
             <br>
@@ -82,6 +199,8 @@
             <div style="font-size:160%;">Basic Milk Producers</div>
             <button style="background:hotpink" onclick="newDromingo()" id="addDromingo">Hatch a new Dromingo (Current Count: 0) Cost: 25 Milk</button>
             <div>Dromingos are sluggish, calm birds that are typically used to produce milk for other bird species. The reddish substance is known to fetch a high price in poorer regions.</div>
+            <br>
+            <br>
             <button style="background:lightgray" onclick="newUdderHen()" id="addUdderHen">Hatch a new Udder Hen (Current Count: 0) Cost: 103 Milk</button>
             <div>Udder Hens are genetically modified leghorn chickens that have udders sprouting between their legs. Their eggs are typically unsuitable for hatching, however their milk is a widely consumed commodity.</div>
             <br>
@@ -104,6 +223,38 @@
             <div style="font-size:160%;">Support</div>
             <button style="background:darkred; color:white" onclick="newTepidBrahma()" id="addTepidBrahma">Hatch a new Tepid Brahma (Current Count: 0) Cost: 2500 Eggs</button>
             <div>Large, jolly chickens that exude a calming warmth that encourages egg development around them. Tepids have very tight social structures: only 30 of them can exist on the same farm.</div>
+        </div>
+        <div class="column underright">
+            <div style="font-size:300%;">Dungeoneering</div>
+                
+            <div class="row">
+                <div class="column dungeonplayer">
+                    <div style="font-size:140%">Player Side</div>
+                    <br>
+                    <div id="playerHealth">Locked</div>
+                    <div id="playerMana">Locked</div>
+                    <div id="playerManaRegen">Locked</div>
+                    <div id="playerAttack">Locked</div>
+                    <div id="playerAutoAttack">Locked</div>
+                    <br>
+                    <button onclick="attackDungeon()" id="attackDungeon">Locked</button>
+                    <br>
+                    <button onclick="fireSpell()" id="castFireSpell">Locked</button>
+                    <br>
+                    <br>
+                    <button onclick="hatchWizird()" id="addWizird">Locked</button>
+                    <br>
+                    <br>
+                    <button onclick="hatchBuzzerker()" id="addBuzzerker">Locked</button>
+                </div>
+                <div class="column dungeonenemy">
+                    <div style="font-size:140%">Enemy Side</div>
+                    <br>
+                    <div id="dungeonName">Locked</div>
+                    <div id="dungeonHealth">Locked</div>
+                    <div id="dungeonAttack">Locked</div>
+                </div>
+            </div>
         </div>
     </div>
     </body>
