@@ -1,0 +1,110 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birdkeeper</title>
+    <style>
+    * {
+        box-sizing: border-box;
+      }
+      
+      /* Create two unequal columns that floats next to each other */
+      .column {
+        float: left;
+        padding: 10px;
+        height: 300px; /* Should be removed. Only for demonstration */
+      }
+      
+      .left {
+        width: 35%;
+      }
+      
+      .right {
+        width: 65%;
+        height: 100%;
+        overflow: scroll;
+      }
+      
+      /* Clear floats after the columns */
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      </style>
+</head>
+<script src="main.js" charset="UTF-8" type="text/javascript"></script>
+<body>
+    <div class="row">
+        <div class="column left">
+            <p style="font-size:250%; color:darkkhaki; background:saddlebrown" id="eggsCollected">0 Eggs</p>
+            <p style="font-size:250%; color:snow; background:slateblue" id="milkCollected">0 Milk</p>
+            <br>
+            <button style="font-size:175%; color:yellowgreen; background:sienna" onclick="collectResources()">Forage</button>
+            <div>Go and forage for resources with any forage-assisting birds you may have.</div>
+            <br>
+            <br>
+            <button style="background:firebrick; color:white" onclick="addEggsPerClick()" id="clickUpgrade">Hatch a new Turkeswine (Current Count: 0) Cost: 12 Eggs</button>
+            <div>Turkswine are large, stout birds with thick, hooked beaks and large, sensitive nostrils. They're commonly used to find all manner of resources.</div>
+            <button style="background:rgb(111, 59, 133); color:white" onclick="addMilkPerClick()" id="clickMilkUpgrade">Hatch a new Pedogeon (Current Count: 0) Cost: 3600 Eggs</button>
+            <div>Pedogeons - named for their eternal youth - are an uncommon sight in cities, where they attempt to trick normal pigeons into lactating for them.</div>
+            <button style="color:yellowgreen; background:sienna" onclick="newNestpecker()" id="addNestpecker">Hatch a new Nestpecker (Current Count: 0) Cost: 4119 Eggs</button>
+            <div>Nestpeckers are excitable cousins of the woodpecker family, adept at using tools to carry things they find. Their excellent communication skills means they can initiate foraging operations indepedently.</div>
+        </div>
+        <div class="column right">
+            <div style="font-size:160%;">Basic Egg Producers</div>
+            <button style="background:rgb(199, 199, 0)" onclick="newSulphurHen()" id="addSulphurHen">Hatch a new Sulphur Hen (Current Count: 0) Cost: 18 Eggs</button>
+            <div>Sulphur Hens are common and docile, as well as easily noticed thanks to their bright yellow coats. Their feather and egg colour comes from a coat of sulphurous compounds that repulses most predators.</div>
+            <button style="background:rgb(199, 199, 0)" onclick="newSulphurRooster()" id="addSulphurRooster">Hatch a new Sulphur Rooster (Current Count: 0) Cost: 680 Eggs</button>
+            <div>Sulphur Roosters are docile compared to most Roosters, though they still have some bite for those who get too close. Sulphur Roosters are typically less brightly coloured than hens, and do not directly lay eggs.</div>
+            <br>
+            <br>
+            <button style="background:rebeccapurple; color:white;" onclick="newButtewren()" id="addButtewren">Hatch a new Buttewren (Current Count: 0) Cost: 71 Eggs</button>
+            <div>Buttewrens are tiny and beautiful, with their black-feathered bodies coming into beautiful, multicoloured, stained-glass-like wings. They are very common and sought by collectors.</div>
+            <button style="background:rebeccapurple; color:white;" onclick="newAlbamoth()" id="addAlbamoth">Hatch a new Albamoth (Current Count: 0) Cost: 450 Milk</button>
+            <div>Moth-winged, hummingbird-like avians that average 2 feet long with 3 foot wingspans. Albamoths have mutualistic relationship with Buttewrens; Albamoths watch over Buttewren nests and protect them from predators, in exchange for excess food gathered by the nesting Buttewrens.</div>
+            <br>
+            <br>
+            <button style="background:green;" onclick="newBruthrush()" id="addBruthrush">Hatch a new Bruthrush (Current Count: 0) Cost: 719</button>
+            <div>Bruthrushes are common verdant birds found in temperate regions. Their large, leafy wings allow them to blend into foliage-rich environments, making them tricky to spot at first glance.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Special Egg Producers</div>
+            <button style="background:ivory" onclick="newSwarmDuck()" id="addSwarmDuck">Hatch a new Swarm Duck (Current Count: 0) Cost: 209 Eggs</button>
+            <div>Swarm Ducks are social waterfowl that congregate in enormous swarms for laying season. Their eggs get higher in quality the more there are in the swarm.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Egg Multipliers</div>
+            <button style="background:grey" onclick="newCragowary()" id="addCragowary">Hatch a new Cragowary (Current Count: 0) Cost: 850 Milk</button>
+            <div>Cragowaries are fierce birds with rocklike skin and pointy feathers. They are exceptionally aggressive, attacking anything that could be deemed as a threat to them.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Basic Milk Producers</div>
+            <button style="background:hotpink" onclick="newDromingo()" id="addDromingo">Hatch a new Dromingo (Current Count: 0) Cost: 25 Milk</button>
+            <div>Dromingos are sluggish, calm birds that are typically used to produce milk for other bird species. The reddish substance is known to fetch a high price in poorer regions.</div>
+            <button style="background:lightgray" onclick="newUdderHen()" id="addUdderHen">Hatch a new Udder Hen (Current Count: 0) Cost: 103 Milk</button>
+            <div>Udder Hens are genetically modified leghorn chickens that have udders sprouting between their legs. Their eggs are typically unsuitable for hatching, however their milk is a widely consumed commodity.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Unique Producers</div>
+            <button style="background:steelblue" onclick="newProkareagle()" id="addProkareagle">Create a new Prokareagle Culture (Current Count: 0) Cost: 6500000 Eggs</button>
+            <div>Prokareagles are relatively common microorganismic birds that often rapidly multiply once they are set in a region. It takes them a long time to produce any worthwhile amount of egg mass.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Unit Producers</div>
+            <button style="background:rgb(199, 199, 0)" onclick="newSulphurMatriarch()" id="addSulphurMatriarch">Hatch a new Sulphur Matriarch (Current Count: 0) Cost: 11000 Milk</button>
+            <div>When engorged in nutrients, a Sulphur Hen with grow to thrice its normal size, becoming a Sulphur Matriarch. Matriarchs do not produce eggs; instead, they automatically hatch and raise Sulphur Hens.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Verdant Boosters</div>
+            <button style="background:gold" onclick="newApiformHummingbird()" id="addApiformHummingbird">Hatch a Apiform Hummingbird (Current Count: 0) Cost: 780 Eggs</button>
+            <div>Apiform Hummingbirds are easily noticed thanks to their yellow and black striped appearance. This gives them a beelike appearance, even though they are incredibly docile and do not have stingers.</div>
+            <br>
+            <br>
+            <div style="font-size:160%;">Support</div>
+            <button style="background:darkred; color:white" onclick="newTepidBrahma()" id="addTepidBrahma">Hatch a new Tepid Brahma (Current Count: 0) Cost: 2500 Eggs</button>
+            <div>Large, jolly chickens that exude a calming warmth that encourages egg development around them. Tepids have very tight social structures: only 30 of them can exist on the same farm.</div>
+        </div>
+    </div>
+    </body>
+</html>
